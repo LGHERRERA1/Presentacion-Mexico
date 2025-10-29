@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+<html lang="es" class="font-sans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte Combinado de Clientes</title>
+
+<!-- Carga de Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Carga de D3.js -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+    /* Agregamos la fuente Inter de Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    html {
+        font-family: 'Inter', sans-serif;
+    }
+    /* Estilos para los ejes de D3 */
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #9CA3AF; /* gray-400 */
+        shape-rendering: crispEdges;
+    }
+    /* Estilo para el texto de los ejes (X e Y) */
+    .axis text {
+        font-family: 'Inter', sans-serif;
+        font-size: 16px; /* Tamaño de fuente aumentado */
+        font-weight: 600; /* Semi-bold */
+        fill: #016B61; /* Color de la paleta */
+    }
+    /* Estilos para la cuadrícula (grid) */
+    .grid line {
+        stroke: #E5E7EB; /* gray-200 */
+        stroke-opacity: 0.7;
+        stroke-dasharray: 2,2; /* Líneas discontinuas */
+    }
+    .grid path {
+        stroke: none; /* Ocultar el eje de la cuadrícula */
+    }
+    .tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 8px;
+        font-size: 12px;
+        background: #1F2937; /* gray-800 */
+        color: white;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    /* Estilo para las etiquetas de datos (números en las barras) */
+    .data-label {
+        font-size: 18px; /* Tamaño aumentado (aún más) */
+        font-weight: 600;
+        text-anchor: middle;
+        pointer-events: none;
+    }
+</style>
+
+
+</head>
+<body class="bg-gray-100">
+
+<!-- Contenedor principal -->
+<div class="min-h-screen p-4 sm:p-8">
+
+    <!-- GRÁFICA 1: VENTAS 2025 -->
+    <div class="max-w-7xl mx-auto mb-8">
+        <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
+            Ventas 2025
+        </h1>
+    </div>
+    <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden p-6 mb-16">
+        <div id="chart-legend" class="flex flex-wrap justify-center gap-4 mb-4"></div>
+        <div id="chart-container" class="w-full">
+            <svg id="ventas-chart" viewBox="0 0 1100 500" class="w-full"></svg>
+        </div>
+        <div id="tooltip" class="tooltip"></div>
+    </div>
+
+    <!-- GRÁFICA 2: VENTAS PROPIAS -->
+    <div class="max-w-7xl mx-auto mb-8">
+        <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
+            Evolución Ventas Propias
+        </h1>
+    </div>
+    <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden p-6 mb-16">
+        <div id="chart-legend-2" class="flex flex-wrap justify-center gap-4 mb-4"></div>
+        <div id="chart-container-2" class="w-full">
+            <svg id="ventas-propias-chart" viewBox="0 0 1100 500" class="w-full"></svg>
+        </div>
+        <div id="tooltip-2" class="tooltip"></div>
+    </div>
+
+    <!-- GRÁFICA 3: UTILIDAD (Antes 4) -->
+    <div class="max-w-7xl mx-auto mb-8">
+        <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
+            Utilidad Bruta vs. Operacional
+        </h1>
+    </div>
+    <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden p-6 mb-16">
+        <div id="chart-legend-3" class="flex flex-wrap justify-center gap-4 mb-4"></div> <!-- ID cambiado a 3 -->
+        <div id="chart-container-3" class="w-full"> <!-- ID cambiado a 3 -->
+            <svg id="utilidad-chart" viewBox="0 0 1100 500" class="w-full"></svg> <!-- ID cambiado a utilidad-chart -->
+        </div>
+        <div id="tooltip-3" class="tooltip"></div> <!-- ID cambiado a 3 -->
+    </div>
+
+
+    <!-- DETALLE DE VENTAS EN DESARROLLO (NUEVA SECCIÓN) -->
+    <div class="max-w-7xl mx-auto mb-8 mt-16">
+        <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
+            Detalle de Ventas en Desarrollo
+        </h1>
+        <p class="text-xl font-medium text-gray-600 mt-1">
+            Desglose por cliente de las oportunidades "En desarrollo".
+        </p>
+    </div>
+
+    <!-- Contenedor para las 4 tarjetas de producto -->
+    <!-- CAMBIO: Se ajustó de 'lg:grid-cols-2' a 'md:grid-cols-2' para que las columnas aparezcan en pantallas más pequeñas -->
+    <div class="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        
+        <!-- Tarjeta 1: LAS -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6">
+            <!-- CAMBIO: Título ajustado de 'LAS (LSS)' a 'LAS (ADBS)' -->
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">LAS (ADBS)</h2>
+            <!-- Bar Chart -->
+            <!-- Total: 347 + 165 + 80 = 592 -->
+            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 592 Ton">
+                <!-- Actual (347) -->
+                <div style="width: 58.61%; background-color: #016B61;" title="Actual: 347 Ton (58.6%)"></div>
+                <!-- Primarios (165) -->
+                <div style="width: 27.87%; background-color: #E5E9C5;" title="Primarios: 165 Ton (27.9%)"></div>
+                <!-- Clorox (80) -->
+                <div style="width: 13.51%; background-color: #70B2B2;" title="Clorox: 80 Ton (13.5%)"></div>
+            </div>
+            <!-- Leyenda/Tabla -->
+            <div class="space-y-2">
+                <!-- Total -->
+                <div class="flex justify-between items-center font-bold text-lg border-b pb-2">
+                    <span>Total Potencial:</span>
+                    <span>592 Ton</span>
+                </div>
+                <!-- Breakdown -->
+                <div class="flex justify-between items-center">
+                    <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
+                    <span class="font-medium">347 Ton</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Primarios (En desarrollo)</span>
+                    <span class="font-medium">165 Ton</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Clorox (En desarrollo)</span>
+                    <span class="font-medium">80 Ton</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2: SULPHEX 28 (LESS 28) -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">SULPHEX 28 (LESS 28)</h2>
+            <!-- Bar Chart -->
+            <!-- Total: 40 + 600 + 500 = 1140 -->
+            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 1,140 Ton">
+                <!-- Actual (40) -->
+                <div style="width: 3.51%; background-color: #016B61;" title="Actual: 40 Ton (3.5%)"></div>
+                <!-- Genomma (600) -->
+                <div style="width: 52.63%; background-color: #E5E9C5;" title="Genomma: 600 Ton (52.6%)"></div>
+                <!-- 4E (500) -->
+                <div style="width: 43.86%; background-color: #70B2B2;" title="4E: 500 Ton (43.9%)"></div>
+            </div>
+            <!-- Leyenda/Tabla -->
+            <div class="space-y-2">
+                <!-- Total -->
+                <div class="flex justify-between items-center font-bold text-lg border-b pb-2">
+                    <span>Total Potencial:</span>
+                    <span>1,140 Ton</span>
+                </div>
+                <!-- Breakdown -->
+                <div class="flex justify-between items-center">
+                    <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
+                    <span class="font-medium">40 Ton</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Genomma (En desarrollo)</span>
+                    <span class="font-medium">600 Ton</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <!-- CORRECCIÓN: Cambiado 'class_class' a 'class' -->
+                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>4E (En desarrollo)</span>
+                    <span class="font-medium">500 Ton</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 3: SULPHEX 70 (LESS 70) -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">SULPHEX 70 (LESS 70)</h2>
+            <!-- Bar Chart -->
+            <!-- Total: 71 + 600 + 600 + 120 = 1391 -->
+            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 1,391 Ton">
+                <!-- Actual (71) -->
+                <div style="width: 5.10%; background-color: #016B61;" title="Actual: 71 Ton (5.1%)"></div>
+                <!-- Unilever (600) -->
+                <div style="width: 43.13%; background-color: #E5E9C5;" title="Unilever: 600 Ton (43.1%)"></div>
+                <!-- Aguaviento (600) -->
+                <div style="width: 43.13%; background-color: #70B2B2;" title="Aguaviento: 600 Ton (43.1%)"></div>
+                <!-- Alen (120) -->
+                <div style="width: 8.63%; background-color: #9ECFD4;" title="Alen: 120 Ton (8.6%)"></div>
+            </div>
+            <!-- Leyenda/Tabla -->
+            <div class="space-y-2">
+                <!-- Total -->
+                <div class="flex justify-between items-center font-bold text-lg border-b pb-2">
+                    <span>Total Potencial:</span>
+                    <span>1,391 Ton</span>
+                </div>
+                <!-- Breakdown -->
+                <div class="flex justify-between items-center">
+                    <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
+                    <span class="font-medium">71 Ton</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Unilever (En desarrollo)</span>
+                    <span class="font-medium">600 Ton</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Aguaviento (En desarrollo)</span>
+                    <span class="font-medium">600 Ton</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #9ECFD4;"></div>Alen (En desarrollo)</span>
+                    <span class="font-medium">120 Ton</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta 4: SULPHANOL 30 (LSS) -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">SULPHANOL 30 (LSS)</h2>
+            <!-- Bar Chart -->
+            <!-- Total: 0 + 400 + 80 = 480 -->
+            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 480 Ton">
+                <!-- Actual (0) -->
+                <!-- <div style="width: 0%; background-color: #016B61;" title="Actual: 0 Ton (0%)"></div> -->
+                <!-- Colgate (400) -->
+                <div style="width: 83.33%; background-color: #E5E9C5;" title="Colgate: 400 Ton (83.3%)"></div>
+                <!-- Orbia (80) -->
+                <div style="width: 16.67%; background-color: #70B2B2;" title="Orbia: 80 Ton (16.7%)"></div>
+            </div>
+            <!-- Leyenda/Tabla -->
+            <div class="space-y-2">
+                <!-- Total -->
+                <div class="flex justify-between items-center font-bold text-lg border-b pb-2">
+                    <span>Total Potencial:</span>
+                    <span>480 Ton</span>
+                </div>
+                <!-- Breakdown -->
+                <div class="flex justify-between items-center">
+                    <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
+                    <span class="font-medium">0 Ton</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Colgate (En desarrollo)</span>
+                    <span class="font-medium">400 Ton</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Orbia (En desarrollo)</span>
+                    <span class="font-medium">80 Ton</span>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- Fin del grid de tarjetas -->
+
+</div> <!-- Fin del contenedor principal -->
+
+<script>
+    // Función para parsear valores, convirtiendo strings vacíos o inválidos a 0
+    const parseVal = (d) => parseInt(d) || 0;
+
+    // --- INICIO GRÁFICA 1: VENTAS 2025 ---
+    (() => {
+        const data = [
+            // Recordatorio: "ADBS" ahora es "LAS"
+            { Mes: "Ene", "LAS Maquila": parseVal("310"), "SLES 70 Maquila": parseVal("0"), "SLES 70": parseVal("0"), "SLES 28": parseVal("0"), "LAS": parseVal("50") },
+            { Mes: "Feb", "LAS Maquila": parseVal("316"), "SLES 70 Maquila": parseVal("0"), "SLES 70": parseVal("65"), "SLES 28": parseVal("35"), "LAS": parseVal("113") },
+            { Mes: "Mar", "LAS Maquila": parseVal("253"), "SLES 70 Maquila": parseVal("35"), "SLES 70": parseVal("0"), "SLES 28": parseVal("175"), "LAS": parseVal("82") },
+            { Mes: "Abr", "LAS Maquila": parseVal("240"), "SLES 70 Maquila": parseVal("0"), "SLES 70": parseVal("72"), "SLES 28": parseVal("203"), "LAS": parseVal("113") },
+            { Mes: "May", "LAS Maquila": parseVal("160"), "SLES 70 Maquila": parseVal("191"), "SLES 70": parseVal("0"), "SLES 28": parseVal("389"), "LAS": parseVal("195") },
+            { Mes: "Jun", "LAS Maquila": parseVal("266"), "SLES 70 Maquila": parseVal("406"), "SLES 70": parseVal("0"), "SLES 28": parseVal("445"), "LAS": parseVal("216") },
+            { Mes: "Jul", "LAS Maquila": parseVal("478"), "SLES 70 Maquila": parseVal("200"), "SLES 70": parseVal("0"), "SLES 28": parseVal("507"), "LAS": parseVal("261") },
+            { Mes: "Ago", "LAS Maquila": parseVal("276"), "SLES 70 Maquila": parseVal("246"), "SLES 70": parseVal("0"), "SLES 28": parseVal("487"), "LAS": parseVal("302") },
+            { Mes: "Sep", "LAS Maquila": parseVal("253"), "SLES 70 Maquila": parseVal("294"), "SLES 70": parseVal("0"), "SLES 28": parseVal("547"), "LAS": parseVal("241") },
+            { Mes: "Oct", "LAS Maquila": parseVal("0"), "SLES 70 Maquila": parseVal("0"), "SLES 70": parseVal("61"), "SLES 28": parseVal("461"), "LAS": parseVal("338") },
+            { Mes: "Nov E*", "LAS Maquila": parseVal(""), "SLES 70 Maquila": parseVal(""), "SLES 70": parseVal("373"), "SLES 28": parseVal("464"), "LAS": parseVal("410") }
+        ];
+
+        const keys = ["LAS Maquila", "SLES 70 Maquila", "SLES 70", "SLES 28", "LAS"];
+        
+        const productColors = {
+            "LAS Maquila": "#70B2B2",   // turquesa
+            "SLES 70 Maquila": "#9ECFD4", // turquesa claro
+            "SLES 70": "#016B61",     // verde oscuro
+            "SLES 28": "#E5E9C5",     // crema
+            "LAS": "#4B5563"      // gris (complementario)
+        };
+
+        const margin = { top: 20, right: 30, bottom: 60, left: 80 };
+        const width = 1100 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        const svg = d3.select("#ventas-chart")
+            .attr("preserveAspectRatio", "xMidYMid meet");
+        
+        const defs = svg.append("defs");
+
+        // Trama de fondo (más tupida y visible)
+        const bgPattern = defs.append("pattern")
+            .attr("id", "bg-pattern-1")
+            .attr("width", 4) // más tupida
+            .attr("height", 4)
+            .attr("patternUnits", "userSpaceOnUse");
+        bgPattern.append("circle")
+            .attr("cx", 2)
+            .attr("cy", 2)
+            .attr("r", 1)
+            .attr("fill", "rgba(0,0,0,0.20)"); // más visible
+
+        // Patrones de rayas para "Maquila"
+        const pattern1 = defs.append("pattern")
+            .attr("id", "stripes-las-maquila")
+            .attr("width", 3).attr("height", 3) // Reducido de 4x4
+            .attr("patternUnits", "userSpaceOnUse");
+            // .attr("patternTransform", "rotate(45)"); // Quitamos rotación
+        pattern1.append("rect").attr("width", 3).attr("height", 3).attr("fill", productColors["LAS Maquila"]); // Reducido de 4x4
+        // pattern1.append("rect").attr("width", 4).attr("height", 8).attr("fill", "rgba(0,0,0,0.3)"); // Quitamos líneas
+        pattern1.append("circle") // Añadimos puntos
+            .attr("cx", 1.5) // Centrado en 3x3
+            .attr("cy", 1.5) // Centrado en 3x3
+            .attr("r", 1) // Radio más pequeño
+            .attr("fill", "rgba(0,0,0,0.5)");
+
+        const pattern2 = defs.append("pattern")
+            .attr("id", "stripes-sles-maquila")
+            .attr("width", 3).attr("height", 3) // Reducido de 4x4
+            .attr("patternUnits", "userSpaceOnUse");
+            // .attr("patternTransform", "rotate(45)"); // Quitamos rotación
+        pattern2.append("rect").attr("width", 3).attr("height", 3).attr("fill", productColors["SLES 70 Maquila"]); // Reducido de 4x4
+        // pattern2.append("rect").attr("width", 4).attr("height", 8).attr("fill", "rgba(0,0,0,0.3)"); // Quitamos líneas
+        pattern2.append("circle") // Añadimos puntos
+            .attr("cx", 1.5) // Centrado en 3x3
+            .attr("cy", 1.5) // Centrado en 3x3
+            .attr("r", 1) // Radio más pequeño
+            .attr("fill", "rgba(0,0,0,0.5)");
+
+        const g = svg.append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+        
+        const tooltip = d3.select("#tooltip");
+        const stack = d3.stack().keys(keys);
+        const series = stack(data);
+
+        const xScale = d3.scaleBand()
+            .domain(data.map(d => d.Mes))
+            .range([0, width])
+            .padding(0.2);
+
+        const maxStackValue = d3.max(series, d => d3.max(d, d => d[1]));
+        const yScale = d3.scaleLinear()
+            .domain([0, maxStackValue * 1.1])
+            .range([height, 0]);
+
+        // Rectángulo de fondo con trama (MOVIDO AQUÍ)
+        g.append("rect")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("fill", "url(#bg-pattern-1)");
+
+        // Añadir líneas de cuadrícula horizontales (MOVIDO AQUÍ)
+        g.append("g")
+            .attr("class", "grid")
+            .call(d3.axisLeft(yScale)
+                .ticks(5)
+                .tickSize(-width) // Extiende las líneas a lo ancho del gráfico
+                .tickFormat("") // Sin etiquetas en las líneas
+            );
+        
+        const color = d3.scaleOrdinal()
+            .domain(keys)
+            .range([
+                "url(#stripes-las-maquila)",
+                "url(#stripes-sles-maquila)",
+                productColors["SLES 70"],
+                productColors["SLES 28"],
+                productColors["LAS"]
+            ]);
+
+        g.append("g")
+            .attr("class", "axis")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(xScale));
+
+        g.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(yScale).ticks(5).tickFormat(d => `${d} Tm`));
+        
+        const barGroups = g.append("g")
+            .selectAll("g")
+            .data(series)
+            .join("g")
+                .attr("fill", d => color(d.key))
+                .attr("class", d => d.key); // Asignar clase para seleccionar
+
+        barGroups.selectAll("rect")
+            .data(d => d)
+            .join("rect")
+                .attr("x", d => xScale(d.data.Mes))
+                .attr("y", d => yScale(d[1]))
+                .attr("height", d => yScale(d[0]) - yScale(d[1]))
+                .attr("width", xScale.bandwidth())
+                .on("mouseover", (event, d) => {
+                    const key = d3.select(event.currentTarget.parentNode).datum().key;
+                    const value = d.data[key];
+                    tooltip.transition().duration(200).style("opacity", 0.9);
+                    tooltip.html(`<strong>${key}</strong><br>${d.data.Mes}: ${value} Tm`)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", () => {
+                    tooltip.transition().duration(500).style("opacity", 0);
+                });
+
+        // Añadir etiquetas de datos (números)
+        barGroups.selectAll(".data-label")
+            .data(d => d)
+            .join("text")
+                .attr("class", "data-label")
+                .attr("x", d => xScale(d.data.Mes) + xScale.bandwidth() / 2)
+                .attr("y", d => yScale(d[1]) + (yScale(d[0]) - yScale(d[1])) / 2 + 6) // +6 para centrar verticalmente
+                .text(function(d) { // <-- Cambiado a 'function'
+                    const key = d3.select(this.parentNode).datum().key; // <-- Cambiado a 'this.parentNode'
+                    const value = d.data[key];
+                    const barHeight = yScale(d[0]) - yScale(d[1]);
+                    return (value > 0 && barHeight > 20) ? value : ""; // Solo mostrar si > 0 y la barra es suficientemente alta
+                })
+                .attr("fill", function(d) { // <-- Cambiado a 'function'
+                    // Contraste de color
+                    const key = d3.select(this.parentNode).datum().key; // <-- Cambiado a 'this.parentNode'
+                    // Fondos claros
+                    if (key === "SLES 28" || key === "SLES 70 Maquila" || key === "LAS Maquila") {
+                        return "#111827"; // Negro
+                    }
+                    return "white"; // Blanco
+                });
+
+        // Leyenda
+        const legend = d3.select("#chart-legend");
+        keys.forEach(key => {
+            const legendItem = legend.append("div").attr("class", "flex items-center");
+            const legendSvg = legendItem.append("svg").attr("width", 16).attr("height", 16).attr("class", "mr-2 rounded-sm");
+            legendSvg.append("rect").attr("width", 16).attr("height", 16).attr("fill", color(key));
+            legendItem.append("span").text(key).attr("class", "text-sm font-medium text-gray-700");
+        });
+
+    })();
+    // --- FIN GRÁFICA 1 ---
+
+    // --- INICIO GRÁFICA 2: VENTAS PROPIAS ---
+    (() => {
+        const data = [
+            { Mes: "Ene", "SLES 70": parseVal("0"), "SLES 28": parseVal("0"), "LAS": parseVal("50") },
+            { Mes: "Feb", "SLES 70": parseVal("65"), "SLES 28": parseVal("35"), "LAS": parseVal("113") },
+            { Mes: "Mar", "SLES 70": parseVal("0"), "SLES 28": parseVal("175"), "LAS": parseVal("82") },
+            { Mes: "Abr", "SLES 70": parseVal("72"), "SLES 28": parseVal("203"), "LAS": parseVal("113") },
+            { Mes: "May", "SLES 70": parseVal("0"), "SLES 28": parseVal("389"), "LAS": parseVal("195") },
+            { Mes: "Jun", "SLES 70": parseVal("0"), "SLES 28": parseVal("445"), "LAS": parseVal("216") },
+            { Mes: "Jul", "SLES 70": parseVal("0"), "SLES 28": parseVal("507"), "LAS": parseVal("261") },
+            { Mes: "Ago", "SLES 70": parseVal("0"), "SLES 28": parseVal("487"), "LAS": parseVal("302") },
+            { Mes: "Sep", "SLES 70": parseVal("0"), "SLES 28": parseVal("547"), "LAS": parseVal("241") },
+            { Mes: "Oct", "SLES 70": parseVal("61"), "SLES 28": parseVal("461"), "LAS": parseVal("338") },
+            { Mes: "Nov E*", "SLES 70": parseVal("373"), "SLES 28": parseVal("464"), "LAS": parseVal("410") }
+        ];
+
+        const keys = ["SLES 70", "SLES 28", "LAS"];
+        
+        const productColors = {
+            "SLES 70": "#016B61",     // verde oscuro
+            "SLES 28": "#E5E9C5",     // crema
+            "LAS": "#4B5563"      // gris (complementario)
+        };
+
+        const margin = { top: 20, right: 30, bottom: 60, left: 80 };
+        const width = 1100 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        const svg = d3.select("#ventas-propias-chart")
+            .attr("preserveAspectRatio", "xMidYMid meet");
+        
+        const defs = svg.append("defs");
+        
+        // Trama de fondo
+        const bgPattern = defs.append("pattern")
+            .attr("id", "bg-pattern-2")
+            .attr("width", 4).attr("height", 4)
+            .attr("patternUnits", "userSpaceOnUse");
+        bgPattern.append("circle").attr("cx", 2).attr("cy", 2).attr("r", 1).attr("fill", "rgba(0,0,0,0.20)");
+
+        const g = svg.append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+        
+        const tooltip = d3.select("#tooltip-2");
+        const stack = d3.stack().keys(keys);
+        const series = stack(data);
+
+        const xScale = d3.scaleBand()
+            .domain(data.map(d => d.Mes))
+            .range([0, width])
+            .padding(0.2);
+
+        const maxStackValue = d3.max(series, d => d3.max(d, d => d[1]));
+        const yScale = d3.scaleLinear()
+            .domain([0, maxStackValue * 1.1])
+            .range([height, 0]);
+
+        // Rectángulo de fondo (MOVIDO AQUÍ)
+        g.append("rect")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("fill", "url(#bg-pattern-2)");
+
+        // Añadir líneas de cuadrícula horizontales (MOVIDO AQUÍ)
+        g.append("g")
+            .attr("class", "grid")
+            .call(d3.axisLeft(yScale)
+                .ticks(5)
+                .tickSize(-width) // Extiende las líneas a lo ancho del gráfico
+                .tickFormat("") // Sin etiquetas en las líneas
+            );
+        
+        const color = d3.scaleOrdinal()
+            .domain(keys)
+            .range([
+                productColors["SLES 70"],
+                productColors["SLES 28"],
+                productColors["LAS"]
+            ]);
+
+        g.append("g")
+            .attr("class", "axis")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(xScale));
+
+        g.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(yScale).ticks(5).tickFormat(d => `${d} Tm`));
+        
+        const barGroups = g.append("g")
+            .selectAll("g")
+            .data(series)
+            .join("g")
+                .attr("fill", d => color(d.key))
+                .attr("class", d => d.key);
+
+        barGroups.selectAll("rect")
+            .data(d => d)
+            .join("rect")
+                .attr("x", d => xScale(d.data.Mes))
+                .attr("y", d => yScale(d[1]))
+                .attr("height", d => yScale(d[0]) - yScale(d[1]))
+                .attr("width", xScale.bandwidth())
+                .on("mouseover", (event, d) => {
+                    const key = d3.select(event.currentTarget.parentNode).datum().key;
+                    const value = d.data[key];
+                    tooltip.transition().duration(200).style("opacity", 0.9);
+                    tooltip.html(`<strong>${key}</strong><br>${d.data.Mes}: ${value} Tm`)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", () => {
+                    tooltip.transition().duration(500).style("opacity", 0);
+                });
+        
+        // Etiquetas de datos (números)
+        barGroups.selectAll(".data-label")
+            .data(d => d)
+            .join("text")
+                .attr("class", "data-label")
+                .attr("x", d => xScale(d.data.Mes) + xScale.bandwidth() / 2)
+                .attr("y", d => yScale(d[1]) + (yScale(d[0]) - yScale(d[1])) / 2 + 6)
+                .text(function(d) { // <-- Cambiado a 'function'
+                    const key = d3.select(this.parentNode).datum().key; // <-- Cambiado a 'this.parentNode'
+                    const value = d.data[key];
+                    const barHeight = yScale(d[0]) - yScale(d[1]);
+                    return (value > 0 && barHeight > 20) ? value : "";
+                })
+                .attr("fill", function(d) { // <-- Cambiado a 'function'
+                    const key = d3.select(this.parentNode).datum().key; // <-- Cambiado a 'this.parentNode'
+                    if (key === "SLES 28") {
+                        return "#111827"; // Negro
+                    }
+                    return "white"; // Blanco
+                });
+
+        // Leyenda
+        const legend = d3.select("#chart-legend-2");
+        keys.forEach(key => {
+            const legendItem = legend.append("div").attr("class", "flex items-center");
+            const legendSvg = legendItem.append("svg").attr("width", 16).attr("height", 16).attr("class", "mr-2 rounded-sm");
+            legendSvg.append("rect").attr("width", 16).attr("height", 16).attr("fill", color(key));
+            legendItem.append("span").text(key).attr("class", "text-sm font-medium text-gray-700");
+        });
+
+    })();
+    // --- FIN GRÁFICA 2 ---
+
+    // --- INICIO GRÁFICA 3: UTILIDAD --- (Antes 4)
+    (() => {
+        // ****** INICIO DE LA CORRECCIÓN ******
+        // Restaurados los datos correctos para la gráfica de Utilidad
+        const data = [
+            { Mes: "Marzo", "Utilidad Bruta": -84, "Utilidad Operacional": -103 },
+            { Mes: "Abril", "Utilidad Bruta": -65, "Utilidad Operacional": -84 },
+            { Mes: "Mayo", "Utilidad Bruta": -39, "Utilidad Operacional": -65 },
+            { Mes: "Junio", "Utilidad Bruta": -51, "Utilidad Operacional": -111 },
+            { Mes: "Julio", "Utilidad Bruta": 22, "Utilidad Operacional": -12 },
+            { Mes: "Agosto", "Utilidad Bruta": 51, "Utilidad Operacional": 18 },
+            { Mes: "Septiembre", "Utilidad Bruta": 35, "Utilidad Operacional": -1 }
+        ];
+
+        // Restauradas las keys correctas
+        const keys = ["Utilidad Bruta", "Utilidad Operacional"];
+        
+        // Restaurados los objetos de colores que faltaban y causaban el error
+        const lineColors = {
+            "Utilidad Bruta": "#3B82F6", // Azul
+            "Utilidad Operacional": "#10B981" // Verde
+        };
+        
+        const labelColors = {
+            "Utilidad Bruta": "bg-blue-500",
+            "Utilidad Operacional": "bg-emerald-500"
+        };
+        // ****** FIN DE LA CORRECCIÓN ******
+
+        const margin = { top: 20, right: 30, bottom: 60, left: 80 };
+        const width = 1100 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        const svg = d3.select("#utilidad-chart") // ID cambiado a utilidad-chart
+            .attr("preserveAspectRatio", "xMidYMid meet");
+        
+        const defs = svg.append("defs");
+        
+        // Trama de fondo
+        const bgPattern = defs.append("pattern")
+            .attr("id", "bg-pattern-3") // ID cambiado a 3
+            .attr("width", 4).attr("height", 4)
+            .attr("patternUnits", "userSpaceOnUse");
+        bgPattern.append("circle").attr("cx", 2).attr("cy", 2).attr("r", 1).attr("fill", "rgba(0,0,0,0.20)");
+
+        const g = svg.append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+        
+        const tooltip = d3.select("#tooltip-3"); // ID cambiado a 3
+
+        // Escalas
+        const xScale = d3.scalePoint()
+            .domain(data.map(d => d.Mes)) // Ahora funciona
+            .range([0, width])
+            .padding(0.5);
+        
+        const minY = d3.min(data, d => Math.min(d["Utilidad Bruta"], d["Utilidad Operacional"])); // Ahora funciona
+        const maxY = d3.max(data, d => Math.max(d["Utilidad Bruta"], d["Utilidad Operacional"])); // Ahora funciona
+        
+        const yScale = d3.scaleLinear()
+            .domain([minY - 20, maxY + 20])
+            .range([height, 0]);
+
+        // Rectángulo de fondo (MOVIDO AQUÍ)
+        g.append("rect")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("fill", "url(#bg-pattern-3)"); // ID cambiado a 3
+
+        // Añadir líneas de cuadrícula horizontales (MOVIDO AQUÍ)
+        g.append("g")
+            .attr("class", "grid")
+            .call(d3.axisLeft(yScale)
+                .ticks(5)
+                .tickSize(-width) // Extiende lasS líneas a lo ancho del gráfico
+                .tickFormat("") // Sin etiquetas en las líneas
+            );
+        
+        const color = d3.scaleOrdinal()
+            .domain(keys)
+            .range([lineColors["Utilidad Bruta"], lineColors["Utilidad Operacional"]]); // Ahora funciona
+
+        // Ejes
+        g.append("g")
+            .attr("class", "axis")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(xScale));
+
+        const yAxis = g.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(yScale).ticks(5).tickFormat(d => `${d}k`));
+        
+        // Línea Cero (0)
+        g.append("line")
+            .attr("x1", 0)
+            .attr("x2", width)
+            .attr("y1", yScale(0))
+            .attr("y2", yScale(0))
+            .attr("stroke", "#016B61")
+            .attr("stroke-width", 2);
+
+        // Dibujar líneas
+        keys.forEach(key => {
+            const line = d3.line()
+                .x(d => xScale(d.Mes)) // Ahora funciona
+                .y(d => yScale(d[key])); // Ahora funciona
+
+            g.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", color(key))
+                .attr("stroke-width", 3)
+                .attr("d", line);
+
+            // Dibujar puntos
+            g.selectAll(`.dot-${key.replace(/\s+/g, '-')}`)
+                .data(data)
+                .join("circle")
+                .attr("class", `dot dot-${key.replace(/\s+/g, '-')}`)
+                .attr("cx", d => xScale(d.Mes)) // Ahora funciona
+                .attr("cy", d => yScale(d[key])) // Ahora funciona
+                .attr("r", 6)
+                .attr("fill", color(key))
+                .on("mouseover", (event, d) => {
+                    const value = d[key];
+                    tooltip.transition().duration(200).style("opacity", 0.9);
+                    tooltip.html(`<strong>${key}</strong><br>${d.Mes}: ${value}k USD`) // Ahora funciona
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", () => {
+                    tooltip.transition().duration(500).style("opacity", 0);
+                });
+
+            // Etiquetas de datos (números)
+            g.selectAll(`.label-${key.replace(/\s+/g, '-')}`)
+                .data(data)
+                .join("text")
+                .attr("class", "data-label")
+                .attr("x", d => xScale(d.Mes)) // Ahora funciona
+                .attr("y", d => yScale(d[key]) - 15) // 15px arriba del punto
+                .attr("fill", color(key)) // Color de la línea
+                // .style("font-size", "14px") // Eliminamos para que tome el de la clase .data-label
+                .style("font-weight", "bold")
+                .text(d => d[key]); // Ahora funciona
+        });
+
+        // Leyenda
+        const legend = d3.select("#chart-legend-3"); // ID cambiado a 3
+        keys.forEach(key => {
+            const legendItem = legend.append("div").attr("class", "flex items-center");
+            legendItem.append("div").attr("class", `w-4 h-4 rounded-sm mr-2 ${labelColors[key]}`); // Ahora funciona
+            legendItem.append("span").text(`${key} (miles de USD)`).attr("class", "text-sm font-medium text-gray-700");
+        });
+    })();
+    // --- FIN GRÁFICA 3 ---
+
+</script>
+
+
+</body>
+</html>
