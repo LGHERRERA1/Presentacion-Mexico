@@ -74,11 +74,15 @@
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
             Ventas 2025
         </h1>
+        <!-- CAMBIO: Subtítulo añadido -->
+        <p class="text-xl font-medium text-gray-600 mt-1">
+            Ventas en volumen (Tm)
+        </p>
     </div>
     <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden p-6 mb-16">
         <div id="chart-legend" class="flex flex-wrap justify-center gap-4 mb-4"></div>
         <div id="chart-container" class="w-full">
-            <svg id="ventas-chart" viewBox="0 0 1100 500" class="w-full"></svg>
+            <svg id="ventas-chart" viewBox="0 0 1100 400" class="w-full"></svg>
         </div>
         <div id="tooltip" class="tooltip"></div>
     </div>
@@ -88,11 +92,15 @@
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
             Evolución Ventas Propias
         </h1>
+        <!-- CAMBIO: Subtítulo añadido -->
+        <p class="text-xl font-medium text-gray-600 mt-1">
+            Ventas en volumen (Tm)
+        </p>
     </div>
     <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden p-6 mb-16">
         <div id="chart-legend-2" class="flex flex-wrap justify-center gap-4 mb-4"></div>
         <div id="chart-container-2" class="w-full">
-            <svg id="ventas-propias-chart" viewBox="0 0 1100 500" class="w-full"></svg>
+            <svg id="ventas-propias-chart" viewBox="0 0 1100 400" class="w-full"></svg>
         </div>
         <div id="tooltip-2" class="tooltip"></div>
     </div>
@@ -106,7 +114,7 @@
     <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden p-6 mb-16">
         <div id="chart-legend-3" class="flex flex-wrap justify-center gap-4 mb-4"></div> <!-- ID cambiado a 3 -->
         <div id="chart-container-3" class="w-full"> <!-- ID cambiado a 3 -->
-            <svg id="utilidad-chart" viewBox="0 0 1100 500" class="w-full"></svg> <!-- ID cambiado a utilidad-chart -->
+            <svg id="utilidad-chart" viewBox="0 0 1100 400" class="w-full"></svg> <!-- ID cambiado a utilidad-chart -->
         </div>
         <div id="tooltip-3" class="tooltip"></div> <!-- ID cambiado a 3 -->
     </div>
@@ -114,11 +122,13 @@
 
     <!-- DETALLE DE VENTAS EN DESARROLLO (NUEVA SECCIÓN) -->
     <div class="max-w-7xl mx-auto mb-8 mt-16">
+        <!-- CAMBIO: Título actualizado -->
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
-            Detalle de Ventas en Desarrollo
+            Ventas actuales y en desarrollo
         </h1>
+        <!-- CAMBIO: Subtítulo actualizado con el Gran Total -->
         <p class="text-xl font-medium text-gray-600 mt-1">
-            Desglose por cliente de las oportunidades "En desarrollo".
+            Desglose por cliente de las oportunidades "En desarrollo". <span class="font-bold text-gray-800">Total Potencial: 4,098 Ton</span>
         </p>
     </div>
 
@@ -131,34 +141,51 @@
             <!-- CAMBIO: Título ajustado de 'LAS (LSS)' a 'LAS (ADBS)' -->
             <h2 class="text-2xl font-bold text-gray-800 mb-4">LAS (ADBS)</h2>
             <!-- Bar Chart -->
-            <!-- Total: 347 + 165 + 80 = 592 -->
-            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 592 Ton">
+            <!-- Total: 347 + 200 + 80 + 20 = 647 -->
+            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 647 Ton">
                 <!-- Actual (347) -->
-                <div style="width: 58.61%; background-color: #016B61;" title="Actual: 347 Ton (58.6%)"></div>
-                <!-- Primarios (165) -->
-                <div style="width: 27.87%; background-color: #E5E9C5;" title="Primarios: 165 Ton (27.9%)"></div>
+                <div style="width: 53.63%; background-color: #016B61;" title="Actual: 347 Ton (53.6%)"></div>
+                <!-- Primarios (200) -->
+                <div style="width: 30.91%; background-color: #E5E9C5;" title="Primarios: 200 Ton (30.9%)"></div>
                 <!-- Clorox (80) -->
-                <div style="width: 13.51%; background-color: #70B2B2;" title="Clorox: 80 Ton (13.5%)"></div>
+                <div style="width: 12.36%; background-color: #70B2B2;" title="Clorox: 80 Ton (12.4%)"></div>
+                <!-- Aguaviento (20) -->
+                <div style="width: 3.09%; background-color: #9ECFD4;" title="Aguaviento: 20 Ton (3.1%)"></div>
             </div>
             <!-- Leyenda/Tabla -->
-            <div class="space-y-2">
+            <div class="space-y-3"> <!-- Aumentado space-y-2 a space-y-3 -->
                 <!-- Total -->
                 <div class="flex justify-between items-center font-bold text-lg border-b pb-2">
                     <span>Total Potencial:</span>
-                    <span>592 Ton</span>
+                    <span>647 Ton</span>
                 </div>
                 <!-- Breakdown -->
                 <div class="flex justify-between items-center">
                     <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
                     <span class="font-medium">347 Ton</span>
                 </div>
+                <!-- CAMBIO: Añadidos logos -->
                 <div class="flex justify-between items-center text-sm">
-                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Primarios (En desarrollo)</span>
-                    <span class="font-medium">165 Ton</span>
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/PqwGRB5b/primarios.jpg" alt="Logo Primarios" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Primarios'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Primarios (En desarrollo)</span>
+                    </div>
+                    <span class="font-medium">200 Ton</span>
                 </div>
                 <div class="flex justify-between items-center text-sm">
-                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Clorox (En desarrollo)</span>
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/gcKGPXvr/Clorox.jpg" alt="Logo Clorox" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Clorox'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Clorox (En desarrollo)</span>
+                    </div>
                     <span class="font-medium">80 Ton</span>
+                </div>
+                <!-- NUEVO CLIENTE -->
+                <div class="flex justify-between items-center text-sm">
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/KYZvSGCj/aguaviento2.png" alt="Logo Aguaviento" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Aguaviento'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #9ECFD4;"></div>Aguaviento (En desarrollo)</span>
+                    </div>
+                    <span class="font-medium">20 Ton</span>
                 </div>
             </div>
         </div>
@@ -167,35 +194,51 @@
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">SULPHEX 28 (LESS 28)</h2>
             <!-- Bar Chart -->
-            <!-- Total: 40 + 600 + 500 = 1140 -->
-            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 1,140 Ton">
+            <!-- Total: 40 + 600 + 500 + 400 = 1540 -->
+            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 1,540 Ton">
                 <!-- Actual (40) -->
-                <div style="width: 3.51%; background-color: #016B61;" title="Actual: 40 Ton (3.5%)"></div>
+                <div style="width: 2.60%; background-color: #016B61;" title="Actual: 40 Ton (2.6%)"></div>
                 <!-- Genomma (600) -->
-                <div style="width: 52.63%; background-color: #E5E9C5;" title="Genomma: 600 Ton (52.6%)"></div>
+                <div style="width: 38.96%; background-color: #E5E9C5;" title="Genomma: 600 Ton (39.0%)"></div>
                 <!-- 4E (500) -->
-                <div style="width: 43.86%; background-color: #70B2B2;" title="4E: 500 Ton (43.9%)"></div>
+                <div style="width: 32.47%; background-color: #70B2B2;" title="4E: 500 Ton (32.5%)"></div>
+                <!-- 3B (400) -->
+                <div style="width: 25.97%; background-color: #9ECFD4;" title="3B: 400 Ton (26.0%)"></div>
             </div>
             <!-- Leyenda/Tabla -->
-            <div class="space-y-2">
+            <div class="space-y-3"> <!-- Aumentado space-y-2 a space-y-3 -->
                 <!-- Total -->
                 <div class="flex justify-between items-center font-bold text-lg border-b pb-2">
                     <span>Total Potencial:</span>
-                    <span>1,140 Ton</span>
+                    <span>1,540 Ton</span>
                 </div>
                 <!-- Breakdown -->
                 <div class="flex justify-between items-center">
                     <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
                     <span class="font-medium">40 Ton</span>
                 </div>
+                <!-- CAMBIO: Añadidos logos -->
                 <div class="flex justify-between items-center text-sm">
-                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Genomma (En desarrollo)</span>
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/0yjknkK6/Genomma.jpg" alt="Logo Genomma" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Genomma'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Genomma (En desarrollo)</span>
+                    </div>
                     <span class="font-medium">600 Ton</span>
                 </div>
                 <div class="flex justify-between items-center text-sm">
-                    <!-- CORRECCIÓN: Cambiado 'class_class' a 'class' -->
-                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>4E (En desarrollo)</span>
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/cLPScQNg/4e.jpg" alt="Logo 4e" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=4e'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>4E (En desarrollo)</span>
+                    </div>
                     <span class="font-medium">500 Ton</span>
+                </div>
+                <!-- NUEVO CLIENTE -->
+                <div class="flex justify-between items-center text-sm">
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/x1jTBjwR/3b.jpg" alt="Logo 3B" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=3B'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #9ECFD4;"></div>3B (En desarrollo)</span>
+                    </div>
+                    <span class="font-medium">400 Ton</span>
                 </div>
             </div>
         </div>
@@ -204,40 +247,60 @@
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">SULPHEX 70 (LESS 70)</h2>
             <!-- Bar Chart -->
-            <!-- Total: 71 + 600 + 600 + 120 = 1391 -->
-            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 1,391 Ton">
+            <!-- Total: 71 + 600 + 600 + 120 + 40 = 1431 -->
+            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 1,431 Ton">
                 <!-- Actual (71) -->
-                <div style="width: 5.10%; background-color: #016B61;" title="Actual: 71 Ton (5.1%)"></div>
+                <div style="width: 4.96%; background-color: #016B61;" title="Actual: 71 Ton (5.0%)"></div>
                 <!-- Unilever (600) -->
-                <div style="width: 43.13%; background-color: #E5E9C5;" title="Unilever: 600 Ton (43.1%)"></div>
+                <div style="width: 41.93%; background-color: #E5E9C5;" title="Unilever: 600 Ton (41.9%)"></div>
                 <!-- Aguaviento (600) -->
-                <div style="width: 43.13%; background-color: #70B2B2;" title="Aguaviento: 600 Ton (43.1%)"></div>
+                <div style="width: 41.93%; background-color: #70B2B2;" title="Aguaviento: 600 Ton (41.9%)"></div>
                 <!-- Alen (120) -->
-                <div style="width: 8.63%; background-color: #9ECFD4;" title="Alen: 120 Ton (8.6%)"></div>
+                <div style="width: 8.39%; background-color: #9ECFD4;" title="Alen: 120 Ton (8.4%)"></div>
+                <!-- Colgate (40) -->
+                <div style="width: 2.79%; background-color: #4B5563;" title="Colgate: 40 Ton (2.8%)"></div>
             </div>
             <!-- Leyenda/Tabla -->
-            <div class="space-y-2">
+            <div class="space-y-3"> <!-- Aumentado space-y-2 a space-y-3 -->
                 <!-- Total -->
                 <div class="flex justify-between items-center font-bold text-lg border-b pb-2">
                     <span>Total Potencial:</span>
-                    <span>1,391 Ton</span>
+                    <span>1,431 Ton</span>
                 </div>
                 <!-- Breakdown -->
                 <div class="flex justify-between items-center">
                     <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
                     <span class="font-medium">71 Ton</span>
                 </div>
+                <!-- CAMBIO: Añadidos logos -->
                 <div class="flex justify-between items-center text-sm">
-                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Unilever (En desarrollo)</span>
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/cHyTTJHc/Unilever.jpg" alt="Logo Unilever" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Unilever'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Unilever (En desarrollo)</span>
+                    </div>
                     <span class="font-medium">600 Ton</span>
                 </div>
                 <div class="flex justify-between items-center text-sm">
-                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Aguaviento (En desarrollo)</span>
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/KYZvSGCj/aguaviento2.png" alt="Logo Aguaviento" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Aguaviento'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Aguaviento (En desarrollo)</span>
+                    </div>
                     <span class="font-medium">600 Ton</span>
                 </div>
                 <div class="flex justify-between items-center text-sm">
-                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #9ECFD4;"></div>Alen (En desarrollo)</span>
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/3RTCmbfW/alen2.jpg" alt="Logo Alen" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Alen'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #9ECFD4;"></div>Alen (En desarrollo)</span>
+                    </div>
                     <span class="font-medium">120 Ton</span>
+                </div>
+                <!-- NUEVO CLIENTE -->
+                <div class="flex justify-between items-center text-sm">
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/y6TnXszp/Colgate-Palmolive-Logo.png" alt="Logo Colgate" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Colgate'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #4B5563;"></div>Colgate (En desarrollo)</span>
+                    </div>
+                    <span class="font-medium">40 Ton</span>
                 </div>
             </div>
         </div>
@@ -256,7 +319,7 @@
                 <div style="width: 16.67%; background-color: #70B2B2;" title="Orbia: 80 Ton (16.7%)"></div>
             </div>
             <!-- Leyenda/Tabla -->
-            <div class="space-y-2">
+            <div class="space-y-3"> <!-- Aumentado space-y-2 a space-y-3 -->
                 <!-- Total -->
                 <div class="flex justify-between items-center font-bold text-lg border-b pb-2">
                     <span>Total Potencial:</span>
@@ -267,12 +330,19 @@
                     <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
                     <span class="font-medium">0 Ton</span>
                 </div>
+                <!-- CAMBIO: Añadidos logos -->
                 <div class="flex justify-between items-center text-sm">
-                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Colgate (En desarrollo)</span>
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/y6TnXszp/Colgate-Palmolive-Logo.png" alt="Logo Colgate" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Colgate'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Colgate (En desarrollo)</span>
+                    </div>
                     <span class="font-medium">400 Ton</span>
                 </div>
                 <div class="flex justify-between items-center text-sm">
-                    <span class="flex items-center pl-6"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Orbia (En desarrollo)</span>
+                    <div class="flex items-center pl-6">
+                        <img src="https://i.postimg.cc/nczK4m2B/orbia.jpg" alt="Logo Orbia" class="h-8 w-20 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Orbia'">
+                        <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Orbia (En desarrollo)</span>
+                    </div>
                     <span class="font-medium">80 Ton</span>
                 </div>
             </div>
@@ -315,7 +385,7 @@
 
         const margin = { top: 20, right: 30, bottom: 60, left: 80 };
         const width = 1100 - margin.left - margin.right;
-        const height = 500 - margin.top - margin.bottom;
+        const height = 400 - margin.top - margin.bottom;
 
         const svg = d3.select("#ventas-chart")
             .attr("preserveAspectRatio", "xMidYMid meet");
@@ -332,34 +402,10 @@
             .attr("cx", 2)
             .attr("cy", 2)
             .attr("r", 1)
-            .attr("fill", "rgba(0,0,0,0.20)"); // más visible
+            .attr("fill", "rgba(0,0,0,0.35)"); // CAMBIO: Trama más oscura
 
-        // Patrones de rayas para "Maquila"
-        const pattern1 = defs.append("pattern")
-            .attr("id", "stripes-las-maquila")
-            .attr("width", 3).attr("height", 3) // Reducido de 4x4
-            .attr("patternUnits", "userSpaceOnUse");
-            // .attr("patternTransform", "rotate(45)"); // Quitamos rotación
-        pattern1.append("rect").attr("width", 3).attr("height", 3).attr("fill", productColors["LAS Maquila"]); // Reducido de 4x4
-        // pattern1.append("rect").attr("width", 4).attr("height", 8).attr("fill", "rgba(0,0,0,0.3)"); // Quitamos líneas
-        pattern1.append("circle") // Añadimos puntos
-            .attr("cx", 1.5) // Centrado en 3x3
-            .attr("cy", 1.5) // Centrado en 3x3
-            .attr("r", 1) // Radio más pequeño
-            .attr("fill", "rgba(0,0,0,0.5)");
 
-        const pattern2 = defs.append("pattern")
-            .attr("id", "stripes-sles-maquila")
-            .attr("width", 3).attr("height", 3) // Reducido de 4x4
-            .attr("patternUnits", "userSpaceOnUse");
-            // .attr("patternTransform", "rotate(45)"); // Quitamos rotación
-        pattern2.append("rect").attr("width", 3).attr("height", 3).attr("fill", productColors["SLES 70 Maquila"]); // Reducido de 4x4
-        // pattern2.append("rect").attr("width", 4).attr("height", 8).attr("fill", "rgba(0,0,0,0.3)"); // Quitamos líneas
-        pattern2.append("circle") // Añadimos puntos
-            .attr("cx", 1.5) // Centrado en 3x3
-            .attr("cy", 1.5) // Centrado en 3x3
-            .attr("r", 1) // Radio más pequeño
-            .attr("fill", "rgba(0,0,0,0.5)");
+        // CAMBIO: Patrones de puntos eliminados
 
         const g = svg.append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
@@ -393,11 +439,12 @@
                 .tickFormat("") // Sin etiquetas en las líneas
             );
         
+        // CAMBIO: Rango de la escala de color actualizado para usar colores sólidos en lugar de patrones
         const color = d3.scaleOrdinal()
             .domain(keys)
             .range([
-                "url(#stripes-las-maquila)",
-                "url(#stripes-sles-maquila)",
+                productColors["LAS Maquila"],
+                productColors["SLES 70 Maquila"],
                 productColors["SLES 70"],
                 productColors["SLES 28"],
                 productColors["LAS"]
@@ -429,13 +476,26 @@
                 .on("mouseover", (event, d) => {
                     const key = d3.select(event.currentTarget.parentNode).datum().key;
                     const value = d.data[key];
+                    // CÁLCULO DEL TOTAL
+                    const total = keys.reduce((acc, currentKey) => acc + d.data[currentKey], 0);
+
                     tooltip.transition().duration(200).style("opacity", 0.9);
-                    tooltip.html(`<strong>${key}</strong><br>${d.data.Mes}: ${value} Tm`)
+                    // TOOLTIP ACTUALIZADO
+                    tooltip.html(`<strong>${key}</strong><br>${d.data.Mes}: ${value} Tm<br><strong>Total: ${total} Tm</strong>`)
                         .style("left", (event.pageX + 10) + "px")
                         .style("top", (event.pageY - 28) + "px");
                 })
                 .on("mouseout", () => {
                     tooltip.transition().duration(500).style("opacity", 0);
+                })
+                // CAMBIO: Añadido borde (stroke) condicional para Maquila
+                .attr("stroke", function(d) {
+                    const key = d3.select(this.parentNode).datum().key;
+                    return key.includes("Maquila") ? "#f59e0b" : "none"; // Borde naranja
+                })
+                .attr("stroke-width", function(d) {
+                    const key = d3.select(this.parentNode).datum().key;
+                    return key.includes("Maquila") ? 4 : 0; // Ancho de 4px
                 });
 
         // Añadir etiquetas de datos (números)
@@ -465,8 +525,14 @@
         const legend = d3.select("#chart-legend");
         keys.forEach(key => {
             const legendItem = legend.append("div").attr("class", "flex items-center");
-            const legendSvg = legendItem.append("svg").attr("width", 16).attr("height", 16).attr("class", "mr-2 rounded-sm");
-            legendSvg.append("rect").attr("width", 16).attr("height", 16).attr("fill", color(key));
+            const legendSvg = legendItem.append("svg").attr("width", 16).attr("height", 16).attr("class", "mr-2"); // Quitado rounded-sm
+            legendSvg.append("rect")
+                .attr("width", 16)
+                .attr("height", 16)
+                .attr("fill", color(key))
+                // CAMBIO: Añadido borde a la leyenda también
+                .attr("stroke", key.includes("Maquila") ? "#f59e0b" : "none")
+                .attr("stroke-width", key.includes("Maquila") ? 3 : 0);
             legendItem.append("span").text(key).attr("class", "text-sm font-medium text-gray-700");
         });
 
@@ -499,7 +565,7 @@
 
         const margin = { top: 20, right: 30, bottom: 60, left: 80 };
         const width = 1100 - margin.left - margin.right;
-        const height = 500 - margin.top - margin.bottom;
+        const height = 400 - margin.top - margin.bottom;
 
         const svg = d3.select("#ventas-propias-chart")
             .attr("preserveAspectRatio", "xMidYMid meet");
@@ -511,7 +577,7 @@
             .attr("id", "bg-pattern-2")
             .attr("width", 4).attr("height", 4)
             .attr("patternUnits", "userSpaceOnUse");
-        bgPattern.append("circle").attr("cx", 2).attr("cy", 2).attr("r", 1).attr("fill", "rgba(0,0,0,0.20)");
+        bgPattern.append("circle").attr("cx", 2).attr("cy", 2).attr("r", 1).attr("fill", "rgba(0,0,0,0.35)"); // CAMBIO: Trama más oscura
 
         const g = svg.append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
@@ -579,8 +645,12 @@
                 .on("mouseover", (event, d) => {
                     const key = d3.select(event.currentTarget.parentNode).datum().key;
                     const value = d.data[key];
+                    // CÁLCULO DEL TOTAL
+                    const total = keys.reduce((acc, currentKey) => acc + d.data[currentKey], 0);
+                    
                     tooltip.transition().duration(200).style("opacity", 0.9);
-                    tooltip.html(`<strong>${key}</strong><br>${d.data.Mes}: ${value} Tm`)
+                    // TOOLTIP ACTUALIZADO
+                    tooltip.html(`<strong>${key}</strong><br>${d.data.Mes}: ${value} Tm<br><strong>Total: ${total} Tm</strong>`)
                         .style("left", (event.pageX + 10) + "px")
                         .style("top", (event.pageY - 28) + "px");
                 })
@@ -652,7 +722,7 @@
 
         const margin = { top: 20, right: 30, bottom: 60, left: 80 };
         const width = 1100 - margin.left - margin.right;
-        const height = 500 - margin.top - margin.bottom;
+        const height = 400 - margin.top - margin.bottom;
 
         const svg = d3.select("#utilidad-chart") // ID cambiado a utilidad-chart
             .attr("preserveAspectRatio", "xMidYMid meet");
@@ -664,7 +734,7 @@
             .attr("id", "bg-pattern-3") // ID cambiado a 3
             .attr("width", 4).attr("height", 4)
             .attr("patternUnits", "userSpaceOnUse");
-        bgPattern.append("circle").attr("cx", 2).attr("cy", 2).attr("r", 1).attr("fill", "rgba(0,0,0,0.20)");
+        bgPattern.append("circle").attr("cx", 2).attr("cy", 2).attr("r", 1).attr("fill", "rgba(0,0,0,0.35)"); // CAMBIO: Trama más oscura
 
         const g = svg.append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
@@ -783,3 +853,4 @@
 
 </body>
 </html>
+
