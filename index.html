@@ -6,11 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reporte Combinado de Clientes</title>
 
-<!-- Carga de Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
+<!-- Carga de Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Carga de D3.js -->
-<script src="https://d3js.org/d3.v7.min.js"></script>
+<!-- Carga de D3.js --><script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
     /* Agregamos la fuente Inter de Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -66,16 +64,13 @@
 </head>
 <body class="bg-gray-100">
 
-<!-- Contenedor principal -->
-<div class="min-h-screen p-4 sm:p-8">
+<!-- Contenedor principal --><div class="min-h-screen p-4 sm:p-8">
 
-    <!-- GRÁFICA 1: VENTAS 2025 -->
-    <div class="max-w-7xl mx-auto mb-8">
+    <!-- GRÁFICA 1: VENTAS 2025 --><div class="max-w-7xl mx-auto mb-8">
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
             Ventas 2025
         </h1>
-        <!-- CAMBIO: Subtítulo añadido -->
-        <p class="text-xl font-medium text-gray-600 mt-1">
+        <!-- CAMBIO: Subtítulo añadido --><p class="text-xl font-medium text-gray-600 mt-1">
             Ventas en volumen (Tm)
         </p>
     </div>
@@ -87,13 +82,11 @@
         <div id="tooltip" class="tooltip"></div>
     </div>
 
-    <!-- GRÁFICA 2: VENTAS PROPIAS -->
-    <div class="max-w-7xl mx-auto mb-8">
+    <!-- GRÁFICA 2: VENTAS PROPIAS --><div class="max-w-7xl mx-auto mb-8">
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
             Evolución Ventas Propias
         </h1>
-        <!-- CAMBIO: Subtítulo añadido -->
-        <p class="text-xl font-medium text-gray-600 mt-1">
+        <!-- CAMBIO: Subtítulo añadido --><p class="text-xl font-medium text-gray-600 mt-1">
             Ventas en volumen (Tm)
         </p>
     </div>
@@ -105,271 +98,214 @@
         <div id="tooltip-2" class="tooltip"></div>
     </div>
 
-    <!-- GRÁFICA 3: UTILIDAD (Antes 4) -->
-    <div class="max-w-7xl mx-auto mb-8">
+    <!-- GRÁFICA 3: UTILIDAD (Antes 4) --><div class="max-w-7xl mx-auto mb-8">
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
             Utilidad Bruta vs. Operacional
         </h1>
     </div>
     <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden p-6 mb-16">
-        <div id="chart-legend-3" class="flex flex-wrap justify-center gap-4 mb-4"></div> <!-- ID cambiado a 3 -->
-        <div id="chart-container-3" class="w-full"> <!-- ID cambiado a 3 -->
-            <svg id="utilidad-chart" viewBox="0 0 1100 400" class="w-full"></svg> <!-- ID cambiado a utilidad-chart -->
-        </div>
-        <div id="tooltip-3" class="tooltip"></div> <!-- ID cambiado a 3 -->
-    </div>
+        <div id="chart-legend-3" class="flex flex-wrap justify-center gap-4 mb-4"></div> <!-- ID cambiado a 3 --><div id="chart-container-3" class="w-full"> <!-- ID cambiado a 3 --><svg id="utilidad-chart" viewBox="0 0 1100 400" class="w-full"></svg> <!-- ID cambiado a utilidad-chart --></div>
+        <div id="tooltip-3" class="tooltip"></div> <!-- ID cambiado a 3 --></div>
 
 
-    <!-- DETALLE DE VENTAS EN DESARROLLO (NUEVA SECCIÓN) -->
-    <div class="max-w-7xl mx-auto mb-8 mt-16">
-        <!-- CAMBIO: Título actualizado -->
-        <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
+    <!-- DETALLE DE VENTAS EN DESARROLLO (NUEVA SECCIÓN) --><div class="max-w-7xl mx-auto mb-8 mt-16">
+        <!-- CAMBIO: Título actualizado --><h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
             Ventas actuales y en desarrollo
         </h1>
-        <!-- CAMBIO: Subtítulo actualizado con el Gran Total -->
-        <p class="text-xl font-medium text-gray-600 mt-1">
+        <!-- CAMBIO: Subtítulo actualizado con el Gran Total --><p class="text-xl font-medium text-gray-600 mt-1">
             Desglose por cliente de las oportunidades "En desarrollo". <span class="font-bold text-gray-800">Total Potencial: 4,518 Ton</span>
         </p>
     </div>
 
-    <!-- Contenedor para las 4 tarjetas de producto -->
-    <!-- CAMBIO: Se ajustó de 'lg:grid-cols-2' a 'md:grid-cols-2' para que las columnas aparezcan en pantallas más pequeñas -->
-    <div class="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+    <!-- Contenedor para las 4 tarjetas de producto --><!-- CAMBIO: Se ajustó de 'lg:grid-cols-2' a 'md:grid-cols-2' para que las columnas aparezcan en pantallas más pequeñas --><div class="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
         
-        <!-- Tarjeta 1: LAS -->
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6">
-            <!-- CAMBIO: Título ajustado de 'LAS (LSS)' a 'LAS (ADBS)' y más grande -->
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">LAS (ADBS)</h2>
-            <!-- Bar Chart -->
-            <!-- Total: 347 + 200 + 80 + 20 = 647 -->
-            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 647 Ton">
-                <!-- Actual (347) -->
-                <div style="width: 53.63%; background-color: #016B61;" title="Actual: 347 Ton (53.6%)"></div>
-                <!-- Primarios (200) -->
-                <div style="width: 30.91%; background-color: #E5E9C5;" title="Primarios: 200 Ton (30.9%)"></div>
-                <!-- Clorox (80) -->
-                <div style="width: 12.36%; background-color: #70B2B2;" title="Clorox: 80 Ton (12.4%)"></div>
-                <!-- Aguaviento (20) -->
-                <div style="width: 3.09%; background-color: #9ECFD4;" title="Aguaviento: 20 Ton (3.1%)"></div>
+        <!-- Tarjeta 1: LAS --><div class="bg-white rounded-2xl shadow-xl overflow-hidden p-4"> <!-- CAMBIO: p-6 a p-4 -->
+            <!-- CAMBIO: Título ajustado de 'LAS (LSS)' a 'LAS (ADBS)' y más grande --><h2 class="text-4xl font-bold text-gray-800 mb-4">LAS (ADBS)</h2>
+            <!-- Bar Chart --><!-- Total: 347 + 200 + 80 + 20 = 647 --><div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 647 Ton">
+                <!-- Actual (347) --><div style="width: 53.63%; background-color: #016B61;" title="Actual: 347 Ton (53.6%)"></div>
+                <!-- Primarios (200) --><div style="width: 30.91%; background-color: #E5E9C5;" title="Primarios: 200 Ton (30.9%)"></div>
+                <!-- Clorox (80) --><div style="width: 12.36%; background-color: #70B2B2;" title="Clorox: 80 Ton (12.4%)"></div>
+                <!-- Aguaviento (20) --><div style="width: 3.09%; background-color: #9ECFD4;" title="Aguaviento: 20 Ton (3.1%)"></div>
             </div>
-            <!-- Leyenda/Tabla -->
-            <div class="space-y-3"> <!-- Aumentado space-y-2 a space-y-3 -->
-                <!-- Total -->
-                <div class="flex justify-between items-center font-bold text-xl border-b pb-2"> <!-- CAMBIO: text-lg a text-xl -->
-                    <span>Total Potencial:</span>
+            <!-- Leyenda/Tabla --><div class="space-y-2"> <!-- CAMBIO: space-y-4 a space-y-2 --><!-- Total --><div class="flex justify-between items-center font-bold text-2xl border-b pb-2"> <!-- CAMBIO: text-xl a text-2xl --><span>Total Potencial:</span>
                     <span>647 Ton</span>
                 </div>
-                <!-- Breakdown -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-base añadido -->
-                    <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
-                    <span class="font-medium text-base">347 Ton</span> <!-- CAMBIO: text-base añadido -->
+                <!-- Breakdown --><!-- CAMBIO: Fondo y padding para "Actual" --><!-- CAMBIO: Estilo de fondo gradiente eliminado por un 'span' con fondo beige sutil --><div class="pt-2"> <!-- Contenedor simple -->
+                    <div class="flex justify-between items-center text-xl font-bold"> <!-- CAMBIO: text-lg a text-xl -->
+                        <!-- CAMBIO: 'span' con fondo beige añadido --><span class="flex items-center bg-slate-200 text-gray-800 px-3 py-1 rounded-md"> <!-- CAMBIO: Fondo beige a gris/slate sutil -->
+                            <div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual
+                        </span>
+                        <span class="font-bold text-xl">347 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
+                    </div>
                 </div>
                 
-                <!-- CAMBIO: Subtítulo "En desarrollo" añadido -->
-                <p class="font-semibold text-gray-700 text-base mt-4 mb-2 border-b pb-1">En desarrollo:</p>
+                <!-- CAMBIO: Subtítulo "En desarrollo" con fondo y padding --><!-- CAMBIO: Estilo de fondo gris eliminado por un 'p' con fondo beige sutil --><div> <!-- CAMBIO: pt-3 eliminado -->
+                    <p class="inline-block bg-slate-200 text-gray-800 px-3 py-1 rounded-md font-bold text-xl">En desarrollo:</p> <!-- CAMBIO: Fondo beige a gris/slate sutil, mt-4 mb-2 eliminado --></div>
 
-                <!-- CAMBIO: Añadidos logos -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <!-- CAMBIO: Añadidos logos --><div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/PqwGRB5b/primarios.jpg" alt="Logo Primarios" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Primarios'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/PqwGRB5b/primarios.jpg" alt="Logo Primarios" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Primarios'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Primarios</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">200 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">200 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/gcKGPXvr/Clorox.jpg" alt="Logo Clorox" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Clorox'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/gcKGPXvr/Clorox.jpg" alt="Logo Clorox" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Clorox'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Clorox</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">80 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">80 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
-                <!-- NUEVO CLIENTE -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <!-- NUEVO CLIENTE --><div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/KYZvSGCj/aguaviento2.png" alt="Logo Aguaviento" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Aguaviento'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/KYZvSGCj/aguaviento2.png" alt="Logo Aguaviento" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Aguaviento'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #9ECFD4;"></div>Aguaviento</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">20 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">20 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
             </div>
         </div>
 
-        <!-- Tarjeta 2: SULPHEX 28 (LESS 28) -->
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">SULPHEX 28 (LESS 28)</h2> <!-- CAMBIO: text-2xl a text-3xl -->
-            <!-- Bar Chart -->
-            <!-- CAMBIO: Total actualizado -->
-            <!-- Total: 460 + 600 + 500 + 400 = 1960 -->
-            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 1,960 Ton">
-                <!-- CAMBIO: "Actual" actualizado de 40 a 460 -->
-                <div style="width: 23.47%; background-color: #016B61;" title="Actual: 460 Ton (23.5%)"></div>
-                <!-- CAMBIO: Resto de porcentajes actualizados -->
-                <div style="width: 30.61%; background-color: #E5E9C5;" title="Genomma: 600 Ton (30.6%)"></div>
+        <!-- Tarjeta 2: SULPHEX 28 (LESS 28) --><div class="bg-white rounded-2xl shadow-xl overflow-hidden p-4"> <!-- CAMBIO: p-6 a p-4 -->
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">SULPHEX 28 (LESS 28)</h2> <!-- CAMBIO: text-3xl a text-4xl --><!-- Bar Chart --><!-- CAMBIO: Total actualizado --><!-- Total: 460 + 600 + 500 + 400 = 1960 --><div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 1,960 Ton">
+                <!-- CAMBIO: "Actual" actualizado de 40 a 460 --><div style="width: 23.47%; background-color: #016B61;" title="Actual: 460 Ton (23.5%)"></div>
+                <!-- CAMBIO: Resto de porcentajes actualizados --><div style="width: 30.61%; background-color: #E5E9C5;" title="Genomma: 600 Ton (30.6%)"></div>
                 <div style="width: 25.51%; background-color: #70B2B2;" title="4E: 500 Ton (25.5%)"></div>
                 <div style="width: 20.41%; background-color: #9ECFD4;" title="3B: 400 Ton (20.4%)"></div>
             </div>
-            <!-- Leyenda/Tabla -->
-            <div class="space-y-3"> <!-- Aumentado space-y-2 a space-y-3 -->
-                <!-- Total -->
-                <div class="flex justify-between items-center font-bold text-xl border-b pb-2"> <!-- CAMBIO: text-lg a text-xl -->
-                    <span>Total Potencial:</span>
-                    <!-- CAMBIO: Total actualizado -->
-                    <span>1,960 Ton</span>
+            <!-- Leyenda/Tabla --><div class="space-y-2"> <!-- CAMBIO: space-y-4 a space-y-2 --><!-- Total --><div class="flex justify-between items-center font-bold text-2xl border-b pb-2"> <!-- CAMBIO: text-xl a text-2xl --><span>Total Potencial:</span>
+                    <!-- CAMBIO: Total actualizado --><span>1,960 Ton</span>
                 </div>
-                <!-- Breakdown -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-base añadido -->
-                    <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
-                    <!-- CAMBIO: "Actual" actualizado -->
-                    <span class="font-medium text-base">460 Ton</span> <!-- CAMBIO: text-base añadido -->
+                <!-- Breakdown --><!-- CAMBIO: Fondo y padding para "Actual" --><!-- CAMBIO: Estilo de fondo gradiente eliminado por un 'span' con fondo beige sutil --><div class="pt-2"> <!-- Contenedor simple -->
+                    <div class="flex justify-between items-center text-xl font-bold"> <!-- CAMBIO: text-lg a text-xl -->
+                        <!-- CAMBIO: 'span' con fondo beige añadido --><span class="flex items-center bg-slate-200 text-gray-800 px-3 py-1 rounded-md"> <!-- CAMBIO: Fondo beige a gris/slate sutil -->
+                            <div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual
+                        </span>
+                        <!-- CAMBIO: "Actual" actualizado --><span class="font-bold text-xl">460 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
+                    </div>
                 </div>
                 
-                <!-- CAMBIO: Subtítulo "En desarrollo" añadido -->
-                <p class="font-semibold text-gray-700 text-base mt-4 mb-2 border-b pb-1">En desarrollo:</p>
+                <!-- CAMBIO: Subtítulo "En desarrollo" con fondo y padding --><!-- CAMBIO: Estilo de fondo gris eliminado por un 'p' con fondo beige sutil --><div> <!-- CAMBIO: pt-3 eliminado -->
+                    <p class="inline-block bg-slate-200 text-gray-800 px-3 py-1 rounded-md font-bold text-xl">En desarrollo:</p> <!-- CAMBIO: Fondo beige a gris/slate sutil, mt-4 mb-2 eliminado --></div>
 
-                <!-- CAMBIO: Añadidos logos -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <!-- CAMBIO: Añadidos logos --><div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/0yjknkK6/Genomma.jpg" alt="Logo Genomma" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Genomma'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/0yjknkK6/Genomma.jpg" alt="Logo Genomma" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Genomma'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Genomma</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">600 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">600 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/cLPScQNg/4e.jpg" alt="Logo 4e" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=4e'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/cLPScQNg/4e.jpg" alt="Logo 4e" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=4e'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>4E</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">500 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">500 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
-                <!-- NUEVO CLIENTE -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <!-- NUEVO CLIENTE --><div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/x1jTBjwR/3b.jpg" alt="Logo 3B" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=3B'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/x1jTBjwR/3b.jpg" alt="Logo 3B" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=3B'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #9ECFD4;"></div>3B</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">400 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">400 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
             </div>
         </div>
 
-        <!-- Tarjeta 3: SULPHEX 70 (LESS 70) -->
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">SULPHEX 70 (LESS 70)</h2> <!-- CAMBIO: text-2xl a text-3xl -->
-            <!-- Bar Chart -->
-            <!-- Total: 71 + 600 + 600 + 120 + 40 = 1431 -->
-            <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 1,431 Ton">
-                <!-- Actual (71) -->
-                <div style="width: 4.96%; background-color: #016B61;" title="Actual: 71 Ton (5.0%)"></div>
-                <!-- Unilever (600) -->
-                <div style="width: 41.93%; background-color: #E5E9C5;" title="Unilever: 600 Ton (41.9%)"></div>
-                <!-- Aguaviento (600) -->
-                <div style="width: 41.93%; background-color: #70B2B2;" title="Aguaviento: 600 Ton (41.9%)"></div>
-                <!-- Alen (120) -->
-                <div style="width: 8.39%; background-color: #9ECFD4;" title="Alen: 120 Ton (8.4%)"></div>
-                <!-- Colgate (40) -->
-                <div style="width: 2.79%; background-color: #4B5563;" title="Colgate: 40 Ton (2.8%)"></div>
+        <!-- Tarjeta 3: SULPHEX 70 (LESS 70) --><div class="bg-white rounded-2xl shadow-xl overflow-hidden p-4"> <!-- CAMBIO: p-6 a p-4 -->
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">SULPHEX 70 (LESS 70)</h2> <!-- CAMBIO: text-3xl a text-4xl --><!-- Bar Chart --><!-- Total: 71 + 600 + 600 + 120 + 40 = 1431 --><div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 1,431 Ton">
+                <!-- Actual (71) --><div style="width: 4.96%; background-color: #016B61;" title="Actual: 71 Ton (5.0%)"></div>
+                <!-- Unilever (600) --><div style="width: 41.93%; background-color: #E5E9C5;" title="Unilever: 600 Ton (41.9%)"></div>
+                <!-- Aguaviento (600) --><div style="width: 41.93%; background-color: #70B2B2;" title="Aguaviento: 600 Ton (41.9%)"></div>
+                <!-- Alen (120) --><div style="width: 8.39%; background-color: #9ECFD4;" title="Alen: 120 Ton (8.4%)"></div>
+                <!-- Colgate (40) --><div style="width: 2.79%; background-color: #4B5563;" title="Colgate: 40 Ton (2.8%)"></div>
             </div>
-            <!-- Leyenda/Tabla -->
-            <div class="space-y-3"> <!-- Aumentado space-y-2 a space-y-3 -->
-                <!-- Total -->
-                <div class="flex justify-between items-center font-bold text-xl border-b pb-2"> <!-- CAMBIO: text-lg a text-xl -->
-                    <span>Total Potencial:</span>
+            <!-- Leyenda/Tabla --><div class="space-y-2"> <!-- CAMBIO: space-y-4 a space-y-2 --><!-- Total --><div class="flex justify-between items-center font-bold text-2xl border-b pb-2"> <!-- CAMBIO: text-xl a text-2xl --><span>Total Potencial:</span>
                     <span>1,431 Ton</span>
                 </div>
-                <!-- Breakdown -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-base añadido -->
-                    <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
-                    <span class="font-medium text-base">71 Ton</span> <!-- CAMBIO: text-base añadido -->
+                <!-- Breakdown --><!-- CAMBIO: Fondo y padding para "Actual" --><!-- CAMBIO: Estilo de fondo gradiente eliminado por un 'span' con fondo beige sutil --><div class="pt-2"> <!-- Contenedor simple -->
+                    <div class="flex justify-between items-center text-xl font-bold"> <!-- CAMBIO: text-lg a text-xl -->
+                        <!-- CAMBIO: 'span' con fondo beige añadido --><span class="flex items-center bg-slate-200 text-gray-800 px-3 py-1 rounded-md"> <!-- CAMBIO: Fondo beige a gris/slate sutil -->
+                            <div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual
+                        </span>
+                        <span class="font-bold text-xl">71 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
+                    </div>
                 </div>
                 
-                <!-- CAMBIO: Subtítulo "En desarrollo" añadido -->
-                <p class="font-semibold text-gray-700 text-base mt-4 mb-2 border-b pb-1">En desarrollo:</p>
+                <!-- CAMBIO: Subtítulo "En desarrollo" con fondo y padding --><!-- CAMBIO: Estilo de fondo gris eliminado por un 'p' con fondo beige sutil --><div> <!-- CAMBIO: pt-3 eliminado -->
+                    <p class="inline-block bg-slate-200 text-gray-800 px-3 py-1 rounded-md font-bold text-xl">En desarrollo:</p> <!-- CAMBIO: Fondo beige a gris/slate sutil, mt-4 mb-2 eliminado --></div>
 
-                <!-- CAMBIO: Añadidos logos -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <!-- CAMBIO: Añadidos logos --><div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/cHyTTJHc/Unilever.jpg" alt="Logo Unilever" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Unilever'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/cHyTTJHc/Unilever.jpg" alt="Logo Unilever" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Unilever'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Unilever</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">600 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">600 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/KYZvSGCj/aguaviento2.png" alt="Logo Aguaviento" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Aguaviento'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/KYZvSGCj/aguaviento2.png" alt="Logo Aguaviento" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Aguaviento'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Aguaviento</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">600 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">600 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/3RTCmbfW/alen2.jpg" alt="Logo Alen" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Alen'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/3RTCmbfW/alen2.jpg" alt="Logo Alen" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Alen'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #9ECFD4;"></div>Alen</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">120 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">120 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
-                <!-- NUEVO CLIENTE -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <!-- NUEVO CLIENTE --><div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/y6TnXszp/Colgate-Palmolive-Logo.png" alt="Logo Colgate" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Colgate'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/y6TnXszp/Colgate-Palmolive-Logo.png" alt="Logo Colgate" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Colgate'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #4B5563;"></div>Colgate</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">40 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">40 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
             </div>
         </div>
         
-        <!-- Tarjeta 4: SULPHANOL 30 (LSS) -->
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">SULPHANOL 30 (LSS)</h2> <!-- CAMBIO: text-2xl a text-3xl -->
-            <!-- Bar Chart -->
-            <!-- Total: 0 + 400 + 80 = 480 -->
+        <!-- Tarjeta 4: SULPHANOL 30 (LSS) --><div class="bg-white rounded-2xl shadow-xl overflow-hidden p-4"> <!-- CAMBIO: p-6 a p-4 -->
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">SULPHANOL 30 (LSS)</h2> <!-- CAMBIO: text-3xl a text-4xl -->
+            <!-- CORRECCIÓN: Div de la barra de progreso re-insertado -->
             <div class="w-full bg-gray-200 rounded-full h-8 flex overflow-hidden mb-4" title="Total Potencial: 480 Ton">
-                <!-- Actual (0) -->
-                <!-- <div style="width: 0%; background-color: #016B61;" title="Actual: 0 Ton (0%)"></div> -->
-                <!-- Colgate (400) -->
-                <div style="width: 83.33%; background-color: #E5E9C5;" title="Colgate: 400 Ton (83.3%)"></div>
-                <!-- Orbia (80) -->
-                <div style="width: 16.67%; background-color: #70B2B2;" title="Orbia: 80 Ton (16.7%)"></div>
+                <!-- Actual (0) --><!-- <div style="width: 0%; background-color: #016B61;" title="Actual: 0 Ton (0%)"></div> --><!-- Colgate (400) --><div style="width: 83.33%; background-color: #E5E9C5;" title="Colgate: 400 Ton (83.3%)"></div>
+                <!-- Orbia (80) --><div style="width: 16.67%; background-color: #70B2B2;" title="Orbia: 80 Ton (16.7%)"></div>
             </div>
-            <!-- Leyenda/Tabla -->
-            <div class="space-y-3"> <!-- Aumentado space-y-2 a space-y-3 -->
-                <!-- Total -->
-                <div class="flex justify-between items-center font-bold text-xl border-b pb-2"> <!-- CAMBIO: text-lg a text-xl -->
-                    <span>Total Potencial:</span>
+            <!-- Leyenda/Tabla --><div class="space-y-2"> <!-- CAMBIO: space-y-4 a space-y-2 --><!-- Total --><div class="flex justify-between items-center font-bold text-2xl border-b pb-2"> <!-- CAMBIO: text-xl a text-2xl --><span>Total Potencial:</span>
                     <span>480 Ton</span>
                 </div>
-                <!-- Breakdown -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-base añadido -->
-                    <span class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual</span>
-                    <span class="font-medium text-base">0 Ton</span> <!-- CAMBIO: text-base añadido -->
+                <!-- Breakdown --><!-- CAMBIO: Fondo y padding para "Actual" --><!-- CAMBIO: Estilo de fondo gradiente eliminado por un 'span' con fondo beige sutil --><div class="pt-2"> <!-- Contenedor simple -->
+                    <div class="flex justify-between items-center text-xl font-bold"> <!-- CAMBIO: text-lg a text-xl -->
+                        <!-- CAMBIO: 'span' con fondo beige añadido --><span class="flex items-center bg-slate-200 text-gray-800 px-3 py-1 rounded-md"> <!-- CAMBIO: Fondo beige a gris/slate sutil -->
+                            <div class="w-4 h-4 rounded mr-2" style="background-color: #016B61;"></div>Actual
+                        </span>
+                        <span class="font-bold text-xl">0 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
+                    </div>
                 </div>
                 
-                <!-- CAMBIO: Subtítulo "En desarrollo" añadido -->
-                <p class="font-semibold text-gray-700 text-base mt-4 mb-2 border-b pb-1">En desarrollo:</p>
+                <!-- CAMBIO: Subtítulo "En desarrollo" con fondo y padding --><!-- CAMBIO: Estilo de fondo gris eliminado por un 'p' con fondo beige sutil --><div> <!-- CAMBIO: pt-3 eliminado -->
+                    <p class="inline-block bg-slate-200 text-gray-800 px-3 py-1 rounded-md font-bold text-xl">En desarrollo:</p> <!-- CAMBIO: Fondo beige a gris/slate sutil, mt-4 mb-2 eliminado --></div>
 
-                <!-- CAMBIO: Añadidos logos -->
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <!-- CAMBIO: Añadidos logos --><div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/y6TnXszp/Colgate-Palmolive-Logo.png" alt="Logo Colgate" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Colgate'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/y6TnXszp/Colgate-Palmolive-Logo.png" alt="Logo Colgate" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Colgate'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #E5E9C5;"></div>Colgate</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">400 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">400 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
-                <div class="flex justify-between items-center text-base"> <!-- CAMBIO: text-sm a text-base -->
+                <div class="flex justify-between items-center text-xl"> <!-- CAMBIO: text-lg a text-xl -->
                     <div class="flex items-center pl-6">
-                        <img src="https://i.postimg.cc/nczK4m2B/orbia.jpg" alt="Logo Orbia" class="h-10 w-24 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Orbia'"> <!-- CAMBIO: Logo más grande -->
+                        <img src="https://i.postimg.cc/nczK4m2B/orbia.jpg" alt="Logo Orbia" class="h-14 w-32 mr-3 object-contain" onerror="this.src='https://placehold.co/100x30?text=Orbia'"> <!-- CAMBIO: Logo más grande h-12 w-28 a h-14 w-32 -->
                         <span class="flex items-center"><div class="w-3 h-3 rounded mr-2" style="background-color: #70B2B2;"></div>Orbia</span> <!-- CAMBIO: "(En desarrollo)" eliminado -->
                     </div>
-                    <span class="font-medium text-base">80 Ton</span> <!-- CAMBIO: text-base añadido -->
+                    <span class="font-medium text-xl">80 Ton</span> <!-- CAMBIO: text-lg a text-xl -->
                 </div>
             </div>
         </div>
 
-    </div> <!-- Fin del grid de tarjetas -->
-
-</div> <!-- Fin del contenedor principal -->
-
-<script>
+    </div> <!-- Fin del grid de tarjetas --></div> <!-- Fin del contenedor principal --><script>
     // Función para parsear valores, convirtiendo strings vacíos o inválidos a 0
     const parseVal = (d) => parseInt(d) || 0;
 
@@ -873,5 +809,3 @@
 
 </body>
 </html>
-
-
